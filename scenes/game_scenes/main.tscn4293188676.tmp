@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://djt6eivqs1mm"]
+
+[ext_resource type="PackedScene" uid="uid://chsg2yokomd6l" path="res://scenes/game_parts/Card.tscn" id="1_1sipr"]
+[ext_resource type="Script" uid="uid://d0cf8ln2frbs0" path="res://scenes/game_scenes/main.gd" id="1_4u7fo"]
+
+[node name="Main" type="Control" unique_id=564139180]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4u7fo")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=94134043]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HFlowContainer" type="HFlowContainer" parent="VBoxContainer" unique_id=7055241]
+custom_minimum_size = Vector2(800, 300)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Card" parent="VBoxContainer/HFlowContainer" unique_id=345484297 instance=ExtResource("1_1sipr")]
+layout_mode = 2
+
+[node name="Card2" parent="VBoxContainer/HFlowContainer" unique_id=2016147316 instance=ExtResource("1_1sipr")]
+layout_mode = 2
+
+[node name="Card3" parent="VBoxContainer/HFlowContainer" unique_id=1825103753 instance=ExtResource("1_1sipr")]
+layout_mode = 2
+
+[node name="Card4" parent="VBoxContainer/HFlowContainer" unique_id=280664113 instance=ExtResource("1_1sipr")]
+layout_mode = 2
+
+[node name="Card5" parent="VBoxContainer/HFlowContainer" unique_id=1341940141 instance=ExtResource("1_1sipr")]
+layout_mode = 2
+
+[node name="Card6" parent="VBoxContainer/HFlowContainer" unique_id=397979657 instance=ExtResource("1_1sipr")]
+layout_mode = 2
+
+[node name="Card7" parent="VBoxContainer/HFlowContainer" unique_id=351691766 instance=ExtResource("1_1sipr")]
+layout_mode = 2

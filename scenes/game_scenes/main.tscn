@@ -1,5 +1,14 @@
 [gd_scene format=3 uid="uid://djt6eivqs1mm"]
 
+[ext_resource type="Script" uid="uid://d0cf8ln2frbs0" path="res://scenes/game_scenes/main.gd" id="1_4u7fo"]
+[ext_resource type="Texture2D" uid="uid://dtfcwrlco1ief" path="res://assets/card_pictures/amogus.jpg" id="2_vurax"]
+[ext_resource type="Texture2D" uid="uid://bjmu425ntg83c" path="res://assets/card_pictures/damn-bird.png" id="3_ioeu3"]
+[ext_resource type="Texture2D" uid="uid://djibq8wi62j2k" path="res://assets/card_pictures/mrpenis.jpg" id="4_v6yh4"]
+[ext_resource type="Texture2D" uid="uid://cqqbhm8qlg42t" path="res://assets/card_pictures/mrballs.jpg" id="5_i0f2d"]
+[ext_resource type="Texture2D" uid="uid://d316uq50jhhuv" path="res://assets/card_pictures/monkey.png" id="5_vurax"]
+[ext_resource type="Texture2D" uid="uid://lrgrhy4sfvak" path="res://assets/card_pictures/weezer.jpg" id="7_v2lb8"]
+[ext_resource type="Texture2D" uid="uid://dvvqa2htebh2j" path="res://assets/card_pictures/shrek.png" id="8_i0f2d"]
+
 [node name="Main" type="Control" unique_id=564139180]
 layout_mode = 3
 anchors_preset = 15
@@ -7,6 +16,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_4u7fo")
+CardImages = Array[Texture2D]([ExtResource("2_vurax"), ExtResource("3_ioeu3"), ExtResource("5_vurax"), ExtResource("5_i0f2d"), ExtResource("4_v6yh4"), ExtResource("7_v2lb8"), ExtResource("8_i0f2d")])
+
+[node name="WrongCardTimer" type="Timer" parent="." unique_id=1379794978]
+wait_time = 0.4
+one_shot = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=94134043]
 layout_mode = 1
@@ -16,9 +31,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HFlowContainer" type="HFlowContainer" parent="VBoxContainer" unique_id=7055241]
-custom_minimum_size = Vector2(800, 300)
+[node name="CardHolder" type="HFlowContainer" parent="VBoxContainer" unique_id=7055241]
+custom_minimum_size = Vector2(700, 300)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 alignment = 1
+
+[connection signal="timeout" from="WrongCardTimer" to="." method="_on_wrong_card_timer_timeout"]
