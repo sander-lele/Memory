@@ -10,8 +10,12 @@ var CardPairCount : int = 7
 #Array with images for the cards
 @export var CardImages : Array[Texture2D]
 
-enum GameState {Pick, Check, Correct, Wrong}
+enum GameState {Pick, Check, Correct, Wrong, Done}
 var CurrentState = GameState.Pick
+
+var DrawCount : int = 0
+var GameTimeSeconds : float = 2
+var GameTimeMinutes : int = 0
 
 func _ready() -> void:
 	CardImages.shuffle()
@@ -30,12 +34,18 @@ func create_card(CardImage : Texture2D):
 	CardInst.CardImage = CardImage
 	Cards.append(CardInst)
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	if CurrentState != GameState.Done: 
+		GameTimeSeconds += delta
+		GameTimeMinutes = int(GameTimeSeconds / 60)
+		$VBoxContainer/InfoPanel/Time.text = "Time: %d.%02d" % [GameTimeMinutes,GameTimeSeconds - (GameTimeMinutes * 60)]
+		$VBoxContainer/InfoPanel/DrawCount.text = "Draws: "+str(DrawCount)
 	match(CurrentState):
 		GameState.Pick:
 			#This is the state, where the player can pick cards
-			#When 2 cards a picked, the game progresses to the Check state
+			#When 2 cards a picked, the game adds 1 to the draw count and progresses to the Check state
 			if SelectedCards.size() == 2:
+				DrawCount += 1
 				CurrentState = GameState.Check
 		GameState.Check:
 			var Card1 : Control = SelectedCards[0]
@@ -49,6 +59,8 @@ func _process(_delta: float) -> void:
 				CurrentState = GameState.Wrong
 		GameState.Correct:
 			#This state simply emptys the SelectedCards array and moves the game to the Pick state
+			SelectedCards[0].Correct = true
+			SelectedCards[1].Correct = true
 			SelectedCards = []
 			CurrentState = GameState.Pick
 		GameState.Wrong:
