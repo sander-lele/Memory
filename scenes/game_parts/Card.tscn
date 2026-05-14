@@ -145,7 +145,7 @@ _data = {
 &"flip": SubResource("Animation_33od1")
 }
 
-[node name="Card" type="Control" unique_id=345484297 node_paths=PackedStringArray("CardButton") groups=["card_button"]]
+[node name="Card" type="Control" unique_id=345484297 node_paths=PackedStringArray("CardButton", "AnimPlayer") groups=["card_button"]]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 3
 anchors_preset = 8
@@ -162,6 +162,7 @@ grow_vertical = 2
 script = ExtResource("1_33od1")
 CardButton = NodePath("Button")
 CardImage = ExtResource("2_mt4ig")
+AnimPlayer = NodePath("AnimationPlayer")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=862044366]
 libraries/ = SubResource("AnimationLibrary_ykl7l")
@@ -190,5 +191,3 @@ grow_vertical = 2
 texture_normal = ExtResource("1_3hslh")
 ignore_texture_size = true
 stretch_mode = 0
-
-[connection signal="current_animation_changed" from="AnimationPlayer" to="." method="_on_animation_player_current_animation_changed"]

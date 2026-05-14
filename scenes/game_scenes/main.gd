@@ -18,30 +18,44 @@ var GameTimeSeconds : float = 2
 var GameTimeMinutes : int = 0
 
 func _ready() -> void:
+	#Shuffles the Image array. This is mostly for the smaller pair counts
+	#so that the images would be diffrent from game to game
 	CardImages.shuffle()
+	#for every pair count, creates 2 cards
 	for i in CardPairCount:
 		create_card(CardImages[i])
 		create_card(CardImages[i])
 	Cards.shuffle()
 	for i in Cards:
+		#adds the Card instances to the scene
 		$VBoxContainer/CardHolder.add_child(i)
 	#connects all the card buttons with card_pressed function
 	for Card : Control in get_tree().get_nodes_in_group("card_button"):
 		Card.CardButton.pressed.connect(card_pressed.bind(Card))
 
 func create_card(CardImage : Texture2D):
+	#Creates a card instance and appends it into the Cards array
 	var CardInst : Control = CardScene.instantiate()
 	CardInst.CardImage = CardImage
 	Cards.append(CardInst)
 
 func _process(delta: float) -> void:
+	#This mess of a function creates an array, where there are only correct cards
+	var AllCardsCorrect = get_tree().get_nodes_in_group("card_button").filter(func(Card): return Card.Correct)
+	
+	if AllCardsCorrect.size() == get_tree().get_nodes_in_group("card_button").size():
+		CurrentState = GameState.Done
 	if CurrentState != GameState.Done: 
 		GameTimeSeconds += delta
 		GameTimeMinutes = int(GameTimeSeconds / 60)
-		$VBoxContainer/InfoPanel/Time.text = "Time: %d.%02d" % [GameTimeMinutes,GameTimeSeconds - (GameTimeMinutes * 60)]
+		$VBoxContainer/InfoPanel/Time.text = "Time: %d:%02d" % [GameTimeMinutes,GameTimeSeconds - (GameTimeMinutes * 60)]
 		$VBoxContainer/InfoPanel/DrawCount.text = "Draws: "+str(DrawCount)
 	match(CurrentState):
 		GameState.Pick:
+			for Card in get_tree().get_nodes_in_group("card_button"):
+				if Card.Correct == false:
+					break
+			
 			#This is the state, where the player can pick cards
 			#When 2 cards a picked, the game adds 1 to the draw count and progresses to the Check state
 			if SelectedCards.size() == 2:
@@ -59,8 +73,8 @@ func _process(delta: float) -> void:
 				CurrentState = GameState.Wrong
 		GameState.Correct:
 			#This state simply emptys the SelectedCards array and moves the game to the Pick state
-			SelectedCards[0].Correct = true
-			SelectedCards[1].Correct = true
+			SelectedCards[0].correct()
+			SelectedCards[1].correct()
 			SelectedCards = []
 			CurrentState = GameState.Pick
 		GameState.Wrong:
@@ -77,6 +91,8 @@ func _process(delta: float) -> void:
 				SelectedCards = []
 			$WrongCardTimer.stop()
 			CurrentState = GameState.Pick
+		GameState.Done:
+			pass
 
 func card_pressed(Card : Control):
 	#reveals the card and appends it to the SelectedCards array

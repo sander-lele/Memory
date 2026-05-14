@@ -2,6 +2,7 @@ extends Control
 
 @export var CardButton : TextureButton
 @export var CardImage : Texture2D
+@export var AnimPlayer : AnimationPlayer
 
 var Correct : bool = false
 
@@ -14,8 +15,6 @@ func reveal_card():
 func hide_card():
 	$AnimationPlayer.play_backwards("flip")
 
-
-
-func _on_animation_player_current_animation_changed(_name: StringName) -> void:
-	if Correct == true:
-		$AnimationPlayer.play("correct")
+func correct():
+	Correct = true
+	$AnimationPlayer.queue("correct")
