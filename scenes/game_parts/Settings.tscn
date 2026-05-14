@@ -1,0 +1,258 @@
+[gd_scene format=3 uid="uid://cabmam4m15l4m"]
+
+[ext_resource type="Script" uid="uid://cvp478q6582w1" path="res://scenes/game_parts/settings.gd" id="1_p38y8"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_xpkda"]
+font_size = 30
+
+[sub_resource type="LabelSettings" id="LabelSettings_p38y8"]
+font_size = 30
+
+[sub_resource type="Animation" id="Animation_p38y8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationPlayer/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationPlayer/ColorRect:size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_dh03o"]
+resource_name = "fade_in"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationPlayer/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(-2, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationPlayer/ColorRect:size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(1152, 648), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ghc04"]
+resource_name = "menu"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationPlayer/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, -2),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationPlayer/ColorRect:size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2(1152, 648)]
+}
+
+[sub_resource type="Animation" id="Animation_n3xjg"]
+resource_name = "retry"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationPlayer/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, -2),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationPlayer/ColorRect:size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2(1152, 648)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l5n27"]
+_data = {
+&"RESET": SubResource("Animation_p38y8"),
+&"fade_in": SubResource("Animation_dh03o"),
+&"menu": SubResource("Animation_ghc04"),
+&"retry": SubResource("Animation_n3xjg")
+}
+
+[node name="Settings" type="Control" unique_id=955176412]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_p38y8")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1341949948]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5176471)
+
+[node name="Panel" type="Panel" parent="." unique_id=1677401752]
+custom_minimum_size = Vector2(400, 250)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -125.0
+offset_right = 200.0
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=241429691]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer" unique_id=1638865331]
+layout_mode = 2
+text = "Sätted"
+label_settings = SubResource("LabelSettings_xpkda")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sound" type="HBoxContainer" parent="Panel/VBoxContainer" unique_id=912041898]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/Sound" unique_id=341281032]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Heli: "
+label_settings = SubResource("LabelSettings_p38y8")
+
+[node name="HSlider" type="HSlider" parent="Panel/VBoxContainer/Sound" unique_id=1306823074]
+custom_minimum_size = Vector2(225, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="Music" type="HBoxContainer" parent="Panel/VBoxContainer" unique_id=1207810329]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/Music" unique_id=904600090]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Muusika:"
+label_settings = SubResource("LabelSettings_p38y8")
+
+[node name="HSlider" type="HSlider" parent="Panel/VBoxContainer/Music" unique_id=45098966]
+custom_minimum_size = Vector2(225, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="Buttons" type="HBoxContainer" parent="Panel/VBoxContainer" unique_id=2061198258]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+alignment = 1
+
+[node name="Menu" type="Button" parent="Panel/VBoxContainer/Buttons" unique_id=905956754]
+custom_minimum_size = Vector2(125, 0)
+layout_mode = 2
+text = "Menüü"
+
+[node name="Retry" type="Button" parent="Panel/VBoxContainer/Buttons" unique_id=47965720]
+custom_minimum_size = Vector2(125, 0)
+layout_mode = 2
+text = "Alusta uuesti"
+
+[node name="CloseButton" type="Button" parent="Panel" unique_id=1967550173]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -8.0
+offset_bottom = 8.0
+grow_horizontal = 0
+text = "X"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1651466341]
+libraries/ = SubResource("AnimationLibrary_l5n27")
+
+[node name="ColorRect" type="ColorRect" parent="AnimationPlayer" unique_id=1549103134]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1152.0
+offset_bottom = -648.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
+
+[connection signal="value_changed" from="Panel/VBoxContainer/Sound/HSlider" to="." method="_on_sound_slider_changed"]
+[connection signal="value_changed" from="Panel/VBoxContainer/Music/HSlider" to="." method="_on_music_slider_changed"]
+[connection signal="pressed" from="Panel/VBoxContainer/Buttons/Menu" to="." method="_on_menu_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/Buttons/Retry" to="." method="_on_retry_pressed"]
+[connection signal="pressed" from="Panel/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

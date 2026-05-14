@@ -11,8 +11,13 @@ config_version=5
 [application]
 
 config/name="Memory"
+run/main_scene="uid://dunvrdehfgjj1"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Global="*uid://cpgergg1qstm5"
 
 [global_group]
 

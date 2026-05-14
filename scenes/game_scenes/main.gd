@@ -48,8 +48,8 @@ func _process(delta: float) -> void:
 	if CurrentState != GameState.Done: 
 		GameTimeSeconds += delta
 		GameTimeMinutes = int(GameTimeSeconds / 60)
-		$VBoxContainer/InfoPanel/Time.text = "Time: %d:%02d" % [GameTimeMinutes,GameTimeSeconds - (GameTimeMinutes * 60)]
-		$VBoxContainer/InfoPanel/DrawCount.text = "Draws: "+str(DrawCount)
+		$VBoxContainer/InfoPanel/Time.text = "Aeg: %d:%02d" % [GameTimeMinutes,GameTimeSeconds - (GameTimeMinutes * 60)]
+		$VBoxContainer/InfoPanel/DrawCount.text = "Käiguloendur: "+str(DrawCount)
 	match(CurrentState):
 		GameState.Pick:
 			for Card in get_tree().get_nodes_in_group("card_button"):
@@ -92,6 +92,7 @@ func _process(delta: float) -> void:
 			$WrongCardTimer.stop()
 			CurrentState = GameState.Pick
 		GameState.Done:
+			#Does nothing, so that the player can do nothing as well
 			pass
 
 func card_pressed(Card : Control):
@@ -100,3 +101,7 @@ func card_pressed(Card : Control):
 	if CurrentState == GameState.Pick:
 		Card.reveal_card()
 		SelectedCards.append(Card)
+
+
+func _on_settings_pressed() -> void:
+	$Settings.visible = true
