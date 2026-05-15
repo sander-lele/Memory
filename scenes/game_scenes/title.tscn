@@ -1,13 +1,21 @@
 [gd_scene format=3 uid="uid://dunvrdehfgjj1"]
 
 [ext_resource type="Script" uid="uid://bfd8i7cnot4dh" path="res://scenes/game_scenes/title.gd" id="1_8utqe"]
+[ext_resource type="Texture2D" uid="uid://bwttxyr28r3hu" path="res://assets/card_back/back_yellow.webp" id="2_gw555"]
 [ext_resource type="PackedScene" uid="uid://cabmam4m15l4m" path="res://scenes/game_parts/Settings.tscn" id="2_y6lof"]
+[ext_resource type="Texture2D" uid="uid://uum17mrgnfql" path="res://assets/card_back/back_blue.webp" id="3_blaiu"]
+[ext_resource type="Texture2D" uid="uid://8burg5pwfj67" path="res://assets/card_back/back_black.webp" id="4_favmd"]
+[ext_resource type="Texture2D" uid="uid://bxg8r8bxxeyp6" path="res://assets/card_back/back_red.webp" id="5_kh3hj"]
+[ext_resource type="Texture2D" uid="uid://bnh2ka0is52b1" path="res://assets/card_back/back_white.webp" id="6_esb25"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_2q0ot"]
 font_size = 80
 
 [sub_resource type="LabelSettings" id="LabelSettings_8utqe"]
 font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_favmd"]
+font_size = 36
 
 [sub_resource type="Animation" id="Animation_p38y8"]
 length = 0.001
@@ -119,13 +127,13 @@ grow_vertical = 2
 [node name="Label" type="Label" parent="Vbox" unique_id=1844028117]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
-text = "Mälumäng! 2!"
+text = "Mälumäng! 2!!"
 label_settings = SubResource("LabelSettings_2q0ot")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ButtonSets" type="VBoxContainer" parent="Vbox" unique_id=915787145]
-custom_minimum_size = Vector2(250, 200)
+custom_minimum_size = Vector2(700, 300)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
@@ -136,30 +144,81 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="PlayButton" type="Button" parent="Vbox/ButtonSets/Start" unique_id=1659365544]
-custom_minimum_size = Vector2(150, 75)
+custom_minimum_size = Vector2(200, 75)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Alusta"
 
 [node name="Settings" type="Button" parent="Vbox/ButtonSets/Start" unique_id=96167720]
-custom_minimum_size = Vector2(150, 75)
+custom_minimum_size = Vector2(200, 75)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Sätted"
 
+[node name="Best" type="Button" parent="Vbox/ButtonSets/Start" unique_id=1894652735]
+custom_minimum_size = Vector2(200, 75)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Parimad Tulemused"
+
 [node name="Exit" type="Button" parent="Vbox/ButtonSets/Start" unique_id=1744832472]
-custom_minimum_size = Vector2(150, 75)
+custom_minimum_size = Vector2(200, 75)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Alt + F4"
 
-[node name="Play" type="VBoxContainer" parent="Vbox/ButtonSets" unique_id=400035107]
+[node name="Play" type="HBoxContainer" parent="Vbox/ButtonSets" unique_id=774768697]
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 5
+alignment = 1
 
-[node name="PairLabel" type="Label" parent="Vbox/ButtonSets/Play" unique_id=1262793830]
+[node name="CardSettings" type="VBoxContainer" parent="Vbox/ButtonSets/Play" unique_id=1901359491]
+layout_mode = 2
+
+[node name="ColorLabel" type="Label" parent="Vbox/ButtonSets/Play/CardSettings" unique_id=1473560750]
+layout_mode = 2
+text = "Kaardi Tagaosa värv:"
+horizontal_alignment = 1
+
+[node name="ColorOption" type="OptionButton" parent="Vbox/ButtonSets/Play/CardSettings" unique_id=1021852466]
+layout_mode = 2
+size_flags_horizontal = 4
+selected = 0
+item_count = 5
+popup/item_0/icon = ExtResource("2_gw555")
+popup/item_0/id = 0
+popup/item_1/icon = ExtResource("3_blaiu")
+popup/item_1/id = 1
+popup/item_2/icon = ExtResource("4_favmd")
+popup/item_2/id = 2
+popup/item_3/icon = ExtResource("5_kh3hj")
+popup/item_3/id = 3
+popup/item_4/icon = ExtResource("6_esb25")
+popup/item_4/id = 4
+
+[node name="PictureLabel" type="Label" parent="Vbox/ButtonSets/Play/CardSettings" unique_id=621960290]
+layout_mode = 2
+text = "Pildikomplekt"
+horizontal_alignment = 1
+
+[node name="PictureOption" type="OptionButton" parent="Vbox/ButtonSets/Play/CardSettings" unique_id=1511385979]
+layout_mode = 2
+size_flags_horizontal = 4
+selected = 0
+item_count = 3
+popup/item_0/text = "Nolk"
+popup/item_0/id = 0
+popup/item_1/text = "Kassid!"
+popup/item_1/id = 1
+popup/item_2/text = "Kassid!! 2!!"
+popup/item_2/id = 2
+
+[node name="Buttons" type="VBoxContainer" parent="Vbox/ButtonSets/Play" unique_id=878303748]
+layout_mode = 2
+
+[node name="PairLabel" type="Label" parent="Vbox/ButtonSets/Play/Buttons" unique_id=1262793830]
 custom_minimum_size = Vector2(200, 20)
 layout_mode = 2
 text = "Kaardi paaride arv:"
@@ -168,16 +227,16 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="PairCount" type="SpinBox" parent="Vbox/ButtonSets/Play" unique_id=2127409418]
+[node name="PairCount" type="SpinBox" parent="Vbox/ButtonSets/Play/Buttons" unique_id=2127409418]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
 size_flags_horizontal = 4
-min_value = 4.0
+min_value = 2.0
 max_value = 16.0
 step = 2.0
 value = 4.0
 
-[node name="DiffLable" type="Label" parent="Vbox/ButtonSets/Play" unique_id=289093732]
+[node name="DiffLable" type="Label" parent="Vbox/ButtonSets/Play/Buttons" unique_id=289093732]
 custom_minimum_size = Vector2(200, 20)
 layout_mode = 2
 text = "Mängu keerulisus"
@@ -186,40 +245,203 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Easy" type="Button" parent="Vbox/ButtonSets/Play" unique_id=2063503852]
+[node name="HBoxContainer" type="HBoxContainer" parent="Vbox/ButtonSets/Play/Buttons" unique_id=1832387907]
+layout_mode = 2
+
+[node name="Easy" type="Button" parent="Vbox/ButtonSets/Play/Buttons" unique_id=2063503852]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Kerge"
 
-[node name="Normal" type="Button" parent="Vbox/ButtonSets/Play" unique_id=898916308]
+[node name="Normal" type="Button" parent="Vbox/ButtonSets/Play/Buttons" unique_id=898916308]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Tavaline"
 
-[node name="Hard" type="Button" parent="Vbox/ButtonSets/Play" unique_id=69204700]
+[node name="Hard" type="Button" parent="Vbox/ButtonSets/Play/Buttons" unique_id=69204700]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Raske"
 
-[node name="Hell" type="Button" parent="Vbox/ButtonSets/Play" unique_id=1907369082]
+[node name="Hell" type="Button" parent="Vbox/ButtonSets/Play/Buttons" unique_id=1907369082]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Arvutivõrgud"
 
-[node name="Gap" type="Control" parent="Vbox/ButtonSets/Play" unique_id=1322505174]
+[node name="Gap" type="Control" parent="Vbox/ButtonSets/Play/Buttons" unique_id=1322505174]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="Back" type="Button" parent="Vbox/ButtonSets/Play" unique_id=401322540]
+[node name="Back" type="Button" parent="Vbox/ButtonSets/Play/Buttons" unique_id=401322540]
 custom_minimum_size = Vector2(150, 75)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Tagasi
 "
+
+[node name="BestScore" type="Panel" parent="Vbox/ButtonSets" unique_id=1443673443]
+visible = false
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+
+[node name="Exit" type="Button" parent="Vbox/ButtonSets/BestScore" unique_id=1750313156]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -8.0
+offset_bottom = 8.0
+grow_horizontal = 0
+text = "X"
+
+[node name="VBox" type="VBoxContainer" parent="Vbox/ButtonSets/BestScore" unique_id=2092885210]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -199.5
+offset_right = 199.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="Vbox/ButtonSets/BestScore/VBox" unique_id=1528059117]
+layout_mode = 2
+text = "Parimad Tulemused"
+label_settings = SubResource("LabelSettings_favmd")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Easy" type="HBoxContainer" parent="Vbox/ButtonSets/BestScore/VBox" unique_id=714575918]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Text" type="Label" parent="Vbox/ButtonSets/BestScore/VBox/Easy" unique_id=1222368050]
+layout_mode = 2
+text = "Kerge: "
+
+[node name="Gap" type="Control" parent="Vbox/ButtonSets/BestScore/VBox/Easy" unique_id=1528147394]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TimeText" type="Label" parent="Vbox/ButtonSets/BestScore/VBox/Easy" unique_id=1594648458]
+layout_mode = 2
+text = "Aeg:"
+
+[node name="TimeResult" type="Label" parent="Vbox/ButtonSets/BestScore/VBox/Easy" unique_id=8510169]
+layout_mode = 2
+text = "0.00"
+
+[node name="DrawText" type="Label" parent="Vbox/ButtonSets/BestScore/VBox/Easy" unique_id=326658842]
+layout_mode = 2
+text = "Käiguloendur: "
+
+[node name="DrawResult" type="Label" parent="Vbox/ButtonSets/BestScore/VBox/Easy" unique_id=494187057]
+layout_mode = 2
+text = "0"
+
+[node name="Normal" type="HBoxContainer" parent="Vbox/ButtonSets/BestScore/VBox" unique_id=1880261370]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Text" type="Label" parent="Vbox/ButtonSets/BestScore/VBox/Normal" unique_id=232470720]
+layout_mode = 2
+text = "Tavaline: "
+
+[node name="Gap" type="Control" parent="Vbox/ButtonSets/BestScore/VBox/Normal" unique_id=1039645992]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TimeText" type="Label" parent="Vbox/ButtonSets/BestScore/VBox/Normal" unique_id=230669793]
+layout_mode = 2
+text = "Aeg:"
+
+[node name="TimeResult" type="Label" parent="Vbox/ButtonSets/BestScore/VBox/Normal" unique_id=1892218879]
+layout_mode = 2
+text = "0.00"
+
+[node name="DrawText" type="Label" parent="Vbox/ButtonSets/BestScore/VBox/Normal" unique_id=417452927]
+layout_mode = 2
+text = "Käiguloendur: "
+
+[node name="DrawResult" type="Label" parent="Vbox/ButtonSets/BestScore/VBox/Normal" unique_id=1301479862]
+layout_mode = 2
+text = "0"
+
+[node name="Hard" type="HBoxContainer" parent="Vbox/ButtonSets/BestScore/VBox" unique_id=1774081023]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Text" type="Label" parent="Vbox/ButtonSets/BestScore/VBox/Hard" unique_id=653661123]
+layout_mode = 2
+text = "Raske:"
+
+[node name="Gap" type="Control" parent="Vbox/ButtonSets/BestScore/VBox/Hard" unique_id=2112118205]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TimeText" type="Label" parent="Vbox/ButtonSets/BestScore/VBox/Hard" unique_id=2067573705]
+layout_mode = 2
+text = "Aeg:"
+
+[node name="TimeResult" type="Label" parent="Vbox/ButtonSets/BestScore/VBox/Hard" unique_id=1410993808]
+layout_mode = 2
+text = "0.00"
+
+[node name="DrawText" type="Label" parent="Vbox/ButtonSets/BestScore/VBox/Hard" unique_id=2023494724]
+layout_mode = 2
+text = "Käiguloendur: "
+
+[node name="DrawResult" type="Label" parent="Vbox/ButtonSets/BestScore/VBox/Hard" unique_id=263665593]
+layout_mode = 2
+text = "0"
+
+[node name="Hell" type="HBoxContainer" parent="Vbox/ButtonSets/BestScore/VBox" unique_id=1694099363]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Text" type="Label" parent="Vbox/ButtonSets/BestScore/VBox/Hell" unique_id=1685756450]
+layout_mode = 2
+text = "Arvutivõrgud: "
+
+[node name="Gap" type="Control" parent="Vbox/ButtonSets/BestScore/VBox/Hell" unique_id=90623544]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TimeText" type="Label" parent="Vbox/ButtonSets/BestScore/VBox/Hell" unique_id=1226918718]
+layout_mode = 2
+text = "Aeg:"
+
+[node name="TimeResult" type="Label" parent="Vbox/ButtonSets/BestScore/VBox/Hell" unique_id=114977738]
+layout_mode = 2
+text = "0.00"
+
+[node name="DrawText" type="Label" parent="Vbox/ButtonSets/BestScore/VBox/Hell" unique_id=1255897725]
+layout_mode = 2
+text = "Käiguloendur: "
+
+[node name="DrawResult" type="Label" parent="Vbox/ButtonSets/BestScore/VBox/Hell" unique_id=281360634]
+layout_mode = 2
+text = "0"
 
 [node name="Settings" parent="." unique_id=955176412 instance=ExtResource("2_y6lof")]
 visible = false
@@ -241,10 +463,12 @@ color = Color(0, 0, 0, 0)
 
 [connection signal="pressed" from="Vbox/ButtonSets/Start/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="Vbox/ButtonSets/Start/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="Vbox/ButtonSets/Start/Best" to="." method="_on_best_pressed"]
 [connection signal="pressed" from="Vbox/ButtonSets/Start/Exit" to="." method="_on_exit_pressed"]
-[connection signal="pressed" from="Vbox/ButtonSets/Play/Easy" to="." method="_on_difficulty_pressed" flags=18]
-[connection signal="pressed" from="Vbox/ButtonSets/Play/Normal" to="." method="_on_difficulty_pressed" flags=18]
-[connection signal="pressed" from="Vbox/ButtonSets/Play/Hard" to="." method="_on_difficulty_pressed" flags=18]
-[connection signal="pressed" from="Vbox/ButtonSets/Play/Hell" to="." method="_on_difficulty_pressed" flags=18]
-[connection signal="pressed" from="Vbox/ButtonSets/Play/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="Vbox/ButtonSets/Play/Buttons/Easy" to="." method="_on_difficulty_pressed" flags=18]
+[connection signal="pressed" from="Vbox/ButtonSets/Play/Buttons/Normal" to="." method="_on_difficulty_pressed" flags=18]
+[connection signal="pressed" from="Vbox/ButtonSets/Play/Buttons/Hard" to="." method="_on_difficulty_pressed" flags=18]
+[connection signal="pressed" from="Vbox/ButtonSets/Play/Buttons/Hell" to="." method="_on_difficulty_pressed" flags=18]
+[connection signal="pressed" from="Vbox/ButtonSets/Play/Buttons/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="Vbox/ButtonSets/BestScore/Exit" to="." method="_on_score_exit_pressed"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

@@ -5,7 +5,7 @@ var Cards : Array[Control] = []
 
 #Array of Cards, that are currently selected
 var SelectedCards : Array[Control] = []
-var CardPairCount : int = 7
+var CardPairCount : int = 0
 
 #Array with images for the cards
 @export var CardImages : Array[Texture2D]
@@ -18,6 +18,7 @@ var GameTimeSeconds : float = 2
 var GameTimeMinutes : int = 0
 
 func _ready() -> void:
+	CardPairCount = Global.CardPairCount
 	#Shuffles the Image array. This is mostly for the smaller pair counts
 	#so that the images would be diffrent from game to game
 	CardImages.shuffle()
@@ -36,26 +37,22 @@ func _ready() -> void:
 func create_card(CardImage : Texture2D):
 	#Creates a card instance and appends it into the Cards array
 	var CardInst : Control = CardScene.instantiate()
+	CardInst.set_card_button_image(Global.CardBackImage)
 	CardInst.CardImage = CardImage
 	Cards.append(CardInst)
 
 func _process(delta: float) -> void:
 	#This mess of a function creates an array, where there are only correct cards
 	var AllCardsCorrect = get_tree().get_nodes_in_group("card_button").filter(func(Card): return Card.Correct)
-	
-	if AllCardsCorrect.size() == get_tree().get_nodes_in_group("card_button").size():
-		CurrentState = GameState.Done
 	if CurrentState != GameState.Done: 
 		GameTimeSeconds += delta
-		GameTimeMinutes = int(GameTimeSeconds / 60)
-		$VBoxContainer/InfoPanel/Time.text = "Aeg: %d:%02d" % [GameTimeMinutes,GameTimeSeconds - (GameTimeMinutes * 60)]
+		$VBoxContainer/InfoPanel/Time.text = Global.convert_seconds_to_time(GameTimeSeconds)
 		$VBoxContainer/InfoPanel/DrawCount.text = "Käiguloendur: "+str(DrawCount)
 	match(CurrentState):
 		GameState.Pick:
-			for Card in get_tree().get_nodes_in_group("card_button"):
-				if Card.Correct == false:
-					break
-			
+			if AllCardsCorrect.size() == get_tree().get_nodes_in_group("card_button").size():
+				game_done()
+				CurrentState = GameState.Done
 			#This is the state, where the player can pick cards
 			#When 2 cards a picked, the game adds 1 to the draw count and progresses to the Check state
 			if SelectedCards.size() == 2:
@@ -102,6 +99,30 @@ func card_pressed(Card : Control):
 		Card.reveal_card()
 		SelectedCards.append(Card)
 
+func game_done():
+	Global.NewBestTime(GameTimeSeconds,DrawCount)
+	Global.save_to_file()
+	Global.load_from_file()
+	$Done/Panel/VBoxContainer/Time.text = "Aeg: "+Global.convert_seconds_to_time(GameTimeSeconds) 
+	$Done/Panel/VBoxContainer/Count.text = "Käiguloendur: "+str(DrawCount)
+	$Done/Panel/VBoxContainer/Diff.text = "Keerulisus: "+str(Global.GameDifficulty)
+	$AnimationPlayer.play("done")
 
 func _on_settings_pressed() -> void:
 	$Settings.visible = true
+
+
+func _on_menu_pressed() -> void:
+	$AnimationPlayer.play("menu")
+
+
+func _on_retry_pressed() -> void:
+	$AnimationPlayer.play("retry")
+
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	match(anim_name):
+		"menu":
+			get_tree().change_scene_to_file("res://scenes/game_scenes/title.tscn")
+		"retry":
+			get_tree().reload_current_scene()

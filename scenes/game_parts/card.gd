@@ -18,3 +18,6 @@ func hide_card():
 func correct():
 	Correct = true
 	$AnimationPlayer.queue("correct")
+
+func set_card_button_image(CardButtonImage : Texture2D):
+	$Button.texture_normal = CardButtonImage
