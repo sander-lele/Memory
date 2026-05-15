@@ -3,6 +3,7 @@ extends Control
 func _ready() -> void:
 	Global.GameDifficulty = ""
 	Global.CardPairCount = 0
+	Global.load_from_file()
 	change_best_score()
 
 func change_best_score():
