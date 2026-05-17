@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://d3ed5164ya00e"]
+
+[ext_resource type="Script" uid="uid://bulskp68ry6u6" path="res://scenes/events/evil_cat_spawner.gd" id="1_3cv71"]
+
+[node name="EvilCatSpawnerSwarm" type="Node2D" unique_id=938854887]
+script = ExtResource("1_3cv71")
+
+[node name="Duration" type="Timer" parent="." unique_id=442394229]
+wait_time = 4096.0
+one_shot = true
+autostart = true
+
+[node name="SpawnInterval" type="Timer" parent="." unique_id=538298104]
+wait_time = 30.0
+autostart = true
+
+[node name="SpawnPoints" type="Node2D" parent="." unique_id=110057252]
+
+[node name="SpawnPoint1" type="Marker2D" parent="SpawnPoints" unique_id=153370976]
+position = Vector2(551, -74)
+
+[node name="SpawnPoint2" type="Marker2D" parent="SpawnPoints" unique_id=1777197965]
+position = Vector2(1247, 322)
+
+[node name="SpawnPoint3" type="Marker2D" parent="SpawnPoints" unique_id=1332923789]
+position = Vector2(571, 749)
+
+[node name="SpawnPoint4" type="Marker2D" parent="SpawnPoints" unique_id=372134095]
+position = Vector2(-136, 309)
+
+[node name="Cats" type="Node2D" parent="." unique_id=430850745]
+
+[connection signal="timeout" from="Duration" to="." method="_on_duration_timeout"]
+[connection signal="timeout" from="SpawnInterval" to="." method="_on_spawn_interval_timeout"]

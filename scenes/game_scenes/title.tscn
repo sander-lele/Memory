@@ -233,7 +233,6 @@ layout_mode = 2
 size_flags_horizontal = 4
 min_value = 2.0
 max_value = 16.0
-step = 2.0
 value = 4.0
 
 [node name="DiffLable" type="Label" parent="Vbox/ButtonSets/Play/Buttons" unique_id=289093732]
@@ -350,6 +349,14 @@ text = "Käiguloendur: "
 layout_mode = 2
 text = "0"
 
+[node name="PairText" type="Label" parent="Vbox/ButtonSets/BestScore/VBox/Easy" unique_id=166120613]
+layout_mode = 2
+text = "Kaardi paaride arv: "
+
+[node name="PairResult" type="Label" parent="Vbox/ButtonSets/BestScore/VBox/Easy" unique_id=953006267]
+layout_mode = 2
+text = "0"
+
 [node name="Normal" type="HBoxContainer" parent="Vbox/ButtonSets/BestScore/VBox" unique_id=1880261370]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
@@ -378,6 +385,14 @@ layout_mode = 2
 text = "Käiguloendur: "
 
 [node name="DrawResult" type="Label" parent="Vbox/ButtonSets/BestScore/VBox/Normal" unique_id=1301479862]
+layout_mode = 2
+text = "0"
+
+[node name="PairText" type="Label" parent="Vbox/ButtonSets/BestScore/VBox/Normal" unique_id=587756002]
+layout_mode = 2
+text = "Kaardi paaride arv: "
+
+[node name="PairResult" type="Label" parent="Vbox/ButtonSets/BestScore/VBox/Normal" unique_id=242327145]
 layout_mode = 2
 text = "0"
 
@@ -412,6 +427,14 @@ text = "Käiguloendur: "
 layout_mode = 2
 text = "0"
 
+[node name="PairText" type="Label" parent="Vbox/ButtonSets/BestScore/VBox/Hard" unique_id=997571335]
+layout_mode = 2
+text = "Kaardi paaride arv: "
+
+[node name="PairResult" type="Label" parent="Vbox/ButtonSets/BestScore/VBox/Hard" unique_id=475518567]
+layout_mode = 2
+text = "0"
+
 [node name="Hell" type="HBoxContainer" parent="Vbox/ButtonSets/BestScore/VBox" unique_id=1694099363]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
@@ -440,6 +463,14 @@ layout_mode = 2
 text = "Käiguloendur: "
 
 [node name="DrawResult" type="Label" parent="Vbox/ButtonSets/BestScore/VBox/Hell" unique_id=281360634]
+layout_mode = 2
+text = "0"
+
+[node name="PairText" type="Label" parent="Vbox/ButtonSets/BestScore/VBox/Hell" unique_id=678922330]
+layout_mode = 2
+text = "Kaardi paaride arv: "
+
+[node name="PairResult" type="Label" parent="Vbox/ButtonSets/BestScore/VBox/Hell" unique_id=4076057]
 layout_mode = 2
 text = "0"
 

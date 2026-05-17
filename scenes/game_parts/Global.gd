@@ -6,7 +6,8 @@ var CardBackImage : Texture2D
 var CardPictureSet : String = ""
 #This stores the data of the diffrent difficulties. From left to right:
 #Time, Drawcount, Number of card pairs
-var BestTime : Dictionary[String,Array] = {
+#Note all the values have to be floats. I guess GDscript is not a fan of arrays of diffrent value types
+var BestTime : Dictionary = {
 "Easy":[0.0,0,0],
 "Normal":[0.0,0,0],
 "Hard":[0.0,0,0],
@@ -15,7 +16,7 @@ var BestTime : Dictionary[String,Array] = {
 
 func NewBestTime(GameTime : float,DrawCount : int):
 	var CurrentDiffTime = BestTime[GameDifficulty]
-	if CurrentDiffTime == [0.0,0,0]:
+	if CurrentDiffTime == [0.0,0.0,0.0]:
 		BestTime[GameDifficulty] = [GameTime, DrawCount,CardPairCount]
 	elif CurrentDiffTime[0] > GameTime or CurrentDiffTime[1] > DrawCount or CurrentDiffTime[2] > CardPairCount:
 		BestTime[GameDifficulty] = [GameTime, DrawCount,CardPairCount]
@@ -31,5 +32,7 @@ func save_to_file():
 
 func load_from_file():
 	var file = FileAccess.open("res://save_game.dat", FileAccess.READ)
-	var content = file.get_as_text()
-	BestTime = JSON.parse_string(content) as Dictionary[String, Array]
+	if file != null:
+		var content = file.get_as_text()
+		var parsed_dict = JSON.parse_string(content)
+		BestTime = parsed_dict as Dictionary[String, Array]

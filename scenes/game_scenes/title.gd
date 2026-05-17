@@ -10,7 +10,8 @@ func change_best_score():
 	for Diff : String in Global.BestTime.keys():
 		var ScoreRow = get_node("Vbox/ButtonSets/BestScore/VBox/"+str(Diff))
 		ScoreRow.get_child(3).text = Global.convert_seconds_to_time(Global.BestTime[Diff][0])
-		ScoreRow.get_child(5).text = str(Global.BestTime[Diff][1])
+		ScoreRow.get_child(5).text = str(int(Global.BestTime[Diff][1]))
+		ScoreRow.get_child(7).text = str(int(Global.BestTime[Diff][2]))
 
 func _on_play_button_pressed() -> void:
 	$Vbox/ButtonSets/Start.visible = false
@@ -36,6 +37,7 @@ func _on_difficulty_pressed(source: BaseButton) -> void:
 	Global.GameDifficulty = source.name
 	Global.CardPairCount = $Vbox/ButtonSets/Play/Buttons/PairCount.value
 	Global.CardBackImage = $Vbox/ButtonSets/Play/CardSettings/ColorOption.get_item_icon($Vbox/ButtonSets/Play/CardSettings/ColorOption.selected)
+	Global.CardPictureSet = $Vbox/ButtonSets/Play/CardSettings/PictureOption.get_item_text($Vbox/ButtonSets/Play/CardSettings/PictureOption.selected)
 	$AnimationPlayer.play("game")
 
 

@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://daywy1unfjjsx"]
+
+[ext_resource type="Script" uid="uid://dwxqpcmkalfs7" path="res://scenes/game_parts/evil_cat.gd" id="1_s8fjv"]
+[ext_resource type="Texture2D" uid="uid://bj6w7c284n4df" path="res://assets/game_assets/evil_cat.png" id="2_yg77o"]
+[ext_resource type="Texture2D" uid="uid://po568gs7gcer" path="res://assets/game_assets/evil_cat_hurt.png" id="3_yg77o"]
+
+[sub_resource type="Curve" id="Curve_yg77o"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_hc3rm"]
+offsets = PackedFloat32Array(0.012345679, 1)
+colors = PackedColorArray(0.27022192, 0.27022192, 0.2702219, 1, 0, 0, 0, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s8fjv"]
+size = Vector2(24, 22)
+
+[node name="EvilCat" type="CharacterBody2D" unique_id=1307475936 groups=["evil_cat"]]
+input_pickable = true
+script = ExtResource("1_s8fjv")
+speed = 300
+steer_force = 90.0
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=1501551286]
+texture = ExtResource("2_yg77o")
+gravity = Vector2(0, 0)
+scale_amount_curve = SubResource("Curve_yg77o")
+color_ramp = SubResource("Gradient_hc3rm")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2068158848]
+texture = ExtResource("2_yg77o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1483004705]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_s8fjv")
+
+[node name="DeadParticle" type="CPUParticles2D" parent="." unique_id=1214046223]
+emitting = false
+amount = 1
+texture = ExtResource("3_yg77o")
+lifetime = 10.0
+one_shot = true
+direction = Vector2(0, -1)
+spread = 12.0
+initial_velocity_min = 772.28
+initial_velocity_max = 772.28
+angular_velocity_min = 456.23
+angular_velocity_max = 584.55
+
+[connection signal="finished" from="DeadParticle" to="." method="_on_cpu_particles_2d_finished"]

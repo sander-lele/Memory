@@ -9,6 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://lrgrhy4sfvak" path="res://assets/card_pictures/weezer.jpg" id="7_v2lb8"]
 [ext_resource type="Texture2D" uid="uid://dvvqa2htebh2j" path="res://assets/card_pictures/shrek.png" id="8_i0f2d"]
 [ext_resource type="PackedScene" uid="uid://cabmam4m15l4m" path="res://scenes/game_parts/Settings.tscn" id="9_v2lb8"]
+[ext_resource type="Script" uid="uid://cmdqcjyuy5buc" path="res://scenes/game_parts/player_hit_box.gd" id="10_aer0h"]
+[ext_resource type="Script" uid="uid://sdav2tohyfxo" path="res://scenes/game_parts/event_spawner.gd" id="11_xwguh"]
+[ext_resource type="PackedScene" uid="uid://d3ed5164ya00e" path="res://scenes/events/evil_cat_spawner_long.tscn" id="12_8lrqr"]
+[ext_resource type="PackedScene" uid="uid://dkiqhoemokydy" path="res://scenes/events/evil_cat_spawner_swarm.tscn" id="12_keeay"]
 
 [sub_resource type="Animation" id="Animation_p38y8"]
 length = 0.001
@@ -117,6 +121,46 @@ tracks/1/keys = {
 "values": [Vector2(1152, 648), Vector2(0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_xwguh"]
+resource_name = "lose"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Lose:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(-2, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Lose/Panel:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(-2, 1),
+"update": 0,
+"values": [Vector2(426, -310), Vector2(426, 174)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Lose:size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0073553706),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1152, 648)]
+}
+
 [sub_resource type="Animation" id="Animation_ghc04"]
 resource_name = "menu"
 length = 0.5
@@ -178,12 +222,53 @@ _data = {
 &"RESET": SubResource("Animation_p38y8"),
 &"done": SubResource("Animation_v2lb8"),
 &"fade_in": SubResource("Animation_dh03o"),
+&"lose": SubResource("Animation_xwguh"),
 &"menu": SubResource("Animation_ghc04"),
 &"retry": SubResource("Animation_n3xjg")
 }
 
 [sub_resource type="LabelSettings" id="LabelSettings_aer0h"]
 font_size = 36
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c633f"]
+size = Vector2(8, 8)
+
+[sub_resource type="Animation" id="Animation_aer0h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_c633f"]
+resource_name = "hit"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xwguh"]
+_data = {
+&"RESET": SubResource("Animation_aer0h"),
+&"hit": SubResource("Animation_c633f")
+}
 
 [node name="Main" type="Control" unique_id=564139180]
 process_mode = 1
@@ -213,11 +298,13 @@ alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="CardHolder" type="HFlowContainer" parent="VBoxContainer" unique_id=7055241]
+[node name="CardHolder" type="HFlowContainer" parent="VBoxContainer" unique_id=966604716]
 custom_minimum_size = Vector2(700, 300)
 layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 4
 alignment = 1
+last_wrap_alignment = 2
 
 [node name="InfoPanel" type="VBoxContainer" parent="VBoxContainer" unique_id=299646215]
 custom_minimum_size = Vector2(0, 100)
@@ -228,6 +315,9 @@ size_flags_horizontal = 3
 layout_mode = 2
 
 [node name="Time" type="Label" parent="VBoxContainer/InfoPanel" unique_id=1179895374]
+layout_mode = 2
+
+[node name="Hp" type="Label" parent="VBoxContainer/InfoPanel" unique_id=1976391522]
 layout_mode = 2
 
 [node name="Settings" type="Button" parent="VBoxContainer/InfoPanel" unique_id=1653316514]
@@ -251,6 +341,14 @@ offset_bottom = -648.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0)
+
+[node name="EventSpawner" type="Node2D" parent="." unique_id=998449172]
+script = ExtResource("11_xwguh")
+Events = Array[PackedScene]([ExtResource("12_keeay"), ExtResource("12_8lrqr")])
+
+[node name="EventTimer" type="Timer" parent="EventSpawner" unique_id=572161567]
+wait_time = 30.0
+autostart = true
 
 [node name="Done" type="ColorRect" parent="." unique_id=1520138625]
 layout_mode = 1
@@ -325,7 +423,87 @@ custom_minimum_size = Vector2(125, 0)
 layout_mode = 2
 text = "Alusta uuesti"
 
+[node name="Lose" type="ColorRect" parent="." unique_id=595741085]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1152.0
+offset_bottom = -648.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
+
+[node name="Panel" type="Panel" parent="Lose" unique_id=539209338]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -634.0
+offset_right = 150.0
+offset_bottom = -333.99997
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Lose/Panel" unique_id=1500191434]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Title" type="Label" parent="Lose/Panel/VBoxContainer" unique_id=941035198]
+layout_mode = 2
+text = "Sa Kaotasid"
+label_settings = SubResource("LabelSettings_aer0h")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Time" type="Label" parent="Lose/Panel/VBoxContainer" unique_id=856235429]
+custom_minimum_size = Vector2(0, 108)
+layout_mode = 2
+text = "Tatt"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Lose/Panel/VBoxContainer" unique_id=25699571]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+alignment = 1
+
+[node name="Menu" type="Button" parent="Lose/Panel/VBoxContainer/HBoxContainer" unique_id=1252105533]
+custom_minimum_size = Vector2(125, 0)
+layout_mode = 2
+text = "Menüü"
+
+[node name="Retry" type="Button" parent="Lose/Panel/VBoxContainer/HBoxContainer" unique_id=427428621]
+custom_minimum_size = Vector2(125, 0)
+layout_mode = 2
+text = "Alusta uuesti"
+
+[node name="PlayerHitBox" type="Area2D" parent="." unique_id=137610791]
+script = ExtResource("10_aer0h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHitBox" unique_id=544562058]
+position = Vector2(4, 4)
+shape = SubResource("RectangleShape2D_c633f")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PlayerHitBox" unique_id=627942224]
+libraries/ = SubResource("AnimationLibrary_xwguh")
+
 [connection signal="pressed" from="VBoxContainer/InfoPanel/Settings" to="." method="_on_settings_pressed"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="timeout" from="EventSpawner/EventTimer" to="EventSpawner" method="_on_event_timer_timeout"]
 [connection signal="pressed" from="Done/Panel/VBoxContainer/HBoxContainer/Menu" to="." method="_on_menu_pressed"]
 [connection signal="pressed" from="Done/Panel/VBoxContainer/HBoxContainer/Retry" to="." method="_on_retry_pressed"]
+[connection signal="pressed" from="Lose/Panel/VBoxContainer/HBoxContainer/Menu" to="." method="_on_menu_pressed"]
+[connection signal="pressed" from="Lose/Panel/VBoxContainer/HBoxContainer/Retry" to="." method="_on_retry_pressed"]
+[connection signal="body_entered" from="PlayerHitBox" to="PlayerHitBox" method="_on_body_entered"]
+[connection signal="end_game" from="PlayerHitBox" to="." method="_on_player_hit_box_end_game"]

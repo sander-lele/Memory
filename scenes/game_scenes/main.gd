@@ -48,6 +48,7 @@ func _process(delta: float) -> void:
 		GameTimeSeconds += delta
 		$VBoxContainer/InfoPanel/Time.text = Global.convert_seconds_to_time(GameTimeSeconds)
 		$VBoxContainer/InfoPanel/DrawCount.text = "Käiguloendur: "+str(DrawCount)
+		$VBoxContainer/InfoPanel/Hp.text = str($PlayerHitBox.Hp)
 	match(CurrentState):
 		GameState.Pick:
 			if AllCardsCorrect.size() == get_tree().get_nodes_in_group("card_button").size():
@@ -102,7 +103,6 @@ func card_pressed(Card : Control):
 func game_done():
 	Global.NewBestTime(GameTimeSeconds,DrawCount)
 	Global.save_to_file()
-	Global.load_from_file()
 	$Done/Panel/VBoxContainer/Time.text = "Aeg: "+Global.convert_seconds_to_time(GameTimeSeconds) 
 	$Done/Panel/VBoxContainer/Count.text = "Käiguloendur: "+str(DrawCount)
 	$Done/Panel/VBoxContainer/Diff.text = "Keerulisus: "+str(Global.GameDifficulty)
@@ -126,3 +126,7 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 			get_tree().change_scene_to_file("res://scenes/game_scenes/title.tscn")
 		"retry":
 			get_tree().reload_current_scene()
+
+
+func _on_player_hit_box_end_game() -> void:
+	$AnimationPlayer.play("lose")
